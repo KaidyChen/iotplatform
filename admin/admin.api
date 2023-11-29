@@ -1,0 +1,130 @@
+syntax = "v1"
+
+//公共type
+type BaseRequest {
+	Page int    `json:"page, optional"`
+	Size int    `json:"size, optional"`
+	Name string `json:"name, optional"`
+}
+
+type DeviceListBasic {
+	Identity       string `json:"identity"`
+	Name           string `json:"name"`
+	Key            string `json:"key"`
+	Secret         string `json:"secret"`
+	ProductName    string `json:"product_name"`
+	LastOnlineTime string `json:"last_online_time"`
+}
+
+type DeviceListRequest {
+	BaseRequest
+}
+
+type DeviceListReply {
+	List  []*DeviceListBasic `json:"list"`
+	Count int64              `json:"count"`
+}
+
+type DeviceCreateRequest {
+	Name            string `json:"name"`
+	ProductIdentity string `json:"productIdentity"`
+}
+
+type DeviceCreateReply {
+	StatusCode string `json:"statusCode"`
+	Msg        string `json:"msg"`
+}
+
+type DeviceUpdateRequest {
+	Identity string `json:"identity"`
+	DeviceCreateRequest
+}
+
+type DeviceUpdateReply {
+	StatusCode string `json:"statusCode"`
+	Msg        string `json:"msg"`
+}
+
+type DeviceDeleteRequest {
+	Identity string `json:"identity"`
+}
+
+type DeviceDeleteReply {
+	StatusCode string `json:"statusCode"`
+	Msg        string `json:"msg"`
+}
+
+type ProductListRequest {
+	BaseRequest
+}
+
+type ProductListReply {
+	List  []*ProductListBasic `json:"list"`
+	Count int64               `json:"count"`
+}
+
+type ProductListBasic {
+	Identity  string `json:"identity"`
+	Key       string `json:"key"`
+	Name      string `json:"name"`
+	CreatedAt string `json:"create_at"`
+}
+
+type ProductCreateRequest {
+	Name string `json:"name"`
+	Desc string `json:"desc"`
+}
+
+type ProductCreateReply {
+	StatusCode string `json:"statusCode"`
+	Msg        string `json:"msg"`
+}
+
+type ProductUpdateRequest {
+	Identity string `json:"identity"`
+	ProductCreateRequest
+}
+
+type ProductUpdateReply {
+	StatusCode string `json:"statusCode"`
+	Msg        string `json:"msg"`
+}
+
+type ProductDeleteRequest {
+	Identity string `json:"identity"`
+}
+
+type ProductDeleteReply {
+	StatusCode string `json:"statusCode"`
+	Msg        string `json:"msg"`
+}
+
+service admin-api {
+	//设备管理类接口
+	//获取设备列表
+	@handler DeviceListHandler
+	get /device/list(DeviceListRequest) returns (DeviceListReply)
+	//创建设备
+	@handler DeviceCreateHandler
+	post /device/create (DeviceCreateRequest) returns (DeviceCreateReply)
+	//修改设备
+	@handler DeviceUpdateHandler
+	put /device/update (DeviceUpdateRequest) returns (DeviceUpdateReply)
+	//删除设备
+	@handler DeviceDeleteHandler
+	delete /device/delete (DeviceDeleteRequest) returns (DeviceDeleteReply)
+
+	//产品管理类接口
+	//获取产品列表
+	@handler ProductListHandler
+	get /product/list (ProductListRequest) returns (ProductListReply)
+	//创建产品
+	@handler ProductCreateHandler
+	post /product/create (ProductCreateRequest) returns (ProductCreateReply)
+	//修改产品
+	@handler ProductUpdateHandler
+	put /product/update (ProductUpdateRequest) returns (ProductUpdateReply)
+	//删除产品
+	@handler ProductDeleteHandler
+	delete /product/delete (ProductDeleteRequest) returns (ProductDeleteReply)
+}

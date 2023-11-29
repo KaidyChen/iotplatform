@@ -1,0 +1,8 @@
+Name: admin-api
+Host: 0.0.0.0
+Port: 9000
+RpcUser:
+  Etcd:
+    Hosts:
+      - 192.168.2.5:2379
+    Key: user.rpc

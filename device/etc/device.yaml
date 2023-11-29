@@ -1,0 +1,10 @@
+Name: device.rpc
+ListenOn: 0.0.0.0:15001
+Etcd:
+  Hosts:
+  - 192.168.2.5:2379
+  Key: device.rpc
+Mqtt:
+  Broker: tcp://192.168.2.5:1883
+  ClientId: go-mqtt-server-client-id
+  Password: '123456'

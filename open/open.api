@@ -1,0 +1,14 @@
+syntax = "v1"
+
+type SendMessageRequest {
+	ProductKey string `json:"product_key"`
+	DeviceKey  string `json:"device_key"`
+	Data       string `json:"data"`
+}
+
+type SendMessageReply {}
+
+service open-api {
+	@handler SendMessageHandler
+	post /send-message(SendMessageRequest) returns (SendMessageReply)
+}
